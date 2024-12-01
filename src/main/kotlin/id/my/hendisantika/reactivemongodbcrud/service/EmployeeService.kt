@@ -1,7 +1,10 @@
 package id.my.hendisantika.reactivemongodbcrud.service
 
+import id.my.hendisantika.reactivemongodbcrud.model.Employee
 import id.my.hendisantika.reactivemongodbcrud.repository.EmployeeRepository
+import id.my.hendisantika.reactivemongodbcrud.request.EmployeeRequest
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Mono
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,4 +20,14 @@ import org.springframework.stereotype.Service
 class EmployeeService(
     private val companyService: CompanyService,
     private val employeeRepository: EmployeeRepository
-)
+) {
+    fun createEmployee(request: EmployeeRequest): Mono<Employee> {
+        val companyId = request.companyId
+
+        return if (companyId == null) {
+            createEmployeeWithoutCompany(request)
+        } else {
+            createEmployeeWithCompany(companyId, request)
+        }
+    }
+}
