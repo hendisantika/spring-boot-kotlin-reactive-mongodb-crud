@@ -92,4 +92,22 @@ class EmployeeService(
                 }
             )
         }
+
+    private fun updateEmployeeWithCompany(
+        companyId: String,
+        employeeToUpdate: Mono<Employee>,
+        request: EmployeeRequest
+    ) =
+        companyService.findById(companyId)
+            .zipWith(employeeToUpdate)
+            .flatMap {
+                employeeRepository.save(
+                    it.t2.apply {
+                        firstName = request.firstName
+                        lastName = request.lastName
+                        email = request.email
+                        company = it.t1
+                    }
+                )
+            }
 }
