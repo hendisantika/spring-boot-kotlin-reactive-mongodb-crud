@@ -35,4 +35,10 @@ class CompanyController(
             .map { CompanyResponse.fromEntity(it) }
             .delayElements(Duration.ofSeconds(2))
     }
+
+    @GetMapping("/{id}")
+    fun findCompanyById(@PathVariable id: String): Mono<CompanyResponse> {
+        return companyService.findById(id)
+            .map { CompanyResponse.fromEntity(it) }
+    }
 }
