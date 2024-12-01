@@ -41,4 +41,17 @@ class EmployeeService(
             )
         )
     }
+
+    private fun createEmployeeWithCompany(companyId: String, request: EmployeeRequest) =
+        companyService.findById(companyId)
+            .flatMap {
+                employeeRepository.save(
+                    Employee(
+                        firstName = request.firstName,
+                        lastName = request.lastName,
+                        email = request.email,
+                        company = it
+                    )
+                )
+            }
 }
