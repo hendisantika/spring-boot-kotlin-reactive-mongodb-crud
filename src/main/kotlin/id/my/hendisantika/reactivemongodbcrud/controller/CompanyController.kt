@@ -50,4 +50,9 @@ class CompanyController(
         return companyService.updateCompany(id, request)
             .map { CompanyResponse.fromEntity(it) }
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteCompany(@PathVariable id: String): Mono<Void> {
+        return companyService.deleteById(id)
+    }
 }
