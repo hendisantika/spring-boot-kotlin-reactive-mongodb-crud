@@ -110,4 +110,9 @@ class EmployeeService(
                     }
                 )
             }
+
+    fun deleteById(id: ObjectId): Mono<Void> {
+        return findById(id)
+            .flatMap(employeeRepository::delete)
+    }
 }
