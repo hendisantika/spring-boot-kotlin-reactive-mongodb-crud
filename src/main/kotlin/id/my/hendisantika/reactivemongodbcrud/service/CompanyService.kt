@@ -5,6 +5,7 @@ import id.my.hendisantika.reactivemongodbcrud.repository.CompanyRepository
 import id.my.hendisantika.reactivemongodbcrud.repository.EmployeeRepository
 import id.my.hendisantika.reactivemongodbcrud.request.CompanyRequest
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 /**
@@ -29,4 +30,6 @@ class CompanyService(
                 address = request.address
             )
         )
+
+    fun findAll(): Flux<Company> = companyRepository.findAll()
 }
