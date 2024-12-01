@@ -81,4 +81,15 @@ class EmployeeService(
         }
     }
 
+    private fun updateEmployeeWithoutCompany(employeeToUpdate: Mono<Employee>, request: EmployeeRequest) =
+        employeeToUpdate.flatMap {
+            employeeRepository.save(
+                it.apply {
+                    firstName = request.firstName
+                    lastName = request.lastName
+                    email = request.email
+                    company = null
+                }
+            )
+        }
 }
