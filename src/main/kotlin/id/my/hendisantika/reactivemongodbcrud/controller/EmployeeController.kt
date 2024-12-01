@@ -40,4 +40,10 @@ class EmployeeController(
         return employeeService.findById(id)
             .map { EmployeeResponse.fromEntity(it) }
     }
+
+    @GetMapping("/company/{companyId}")
+    fun findAllByCompanyId(@PathVariable companyId: String): Flux<EmployeeResponse> {
+        return employeeService.findAllByCompanyId(companyId)
+            .map { EmployeeResponse.fromEntity(it) }
+    }
 }
