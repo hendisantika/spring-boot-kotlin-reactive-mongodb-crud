@@ -42,4 +42,16 @@ class CompanyService(
                     NotFoundException("Company with id $id not found")
                 )
             }
+
+    fun updateCompany(id: String, request: CompanyRequest): Mono<Company> =
+        findById(id)
+            .flatMap {
+                companyRepository.save(
+                    it.apply {
+                        name = request.name
+                        address = request.address
+                    }
+                )
+            }
+            .doOnSuccess { updateCompanyEmployees(it).subscribe() }
 }
