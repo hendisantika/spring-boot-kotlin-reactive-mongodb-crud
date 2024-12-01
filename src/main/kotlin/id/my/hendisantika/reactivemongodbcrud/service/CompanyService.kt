@@ -1,5 +1,6 @@
 package id.my.hendisantika.reactivemongodbcrud.service
 
+import id.my.hendisantika.reactivemongodbcrud.exception.NotFoundException
 import id.my.hendisantika.reactivemongodbcrud.model.Company
 import id.my.hendisantika.reactivemongodbcrud.repository.CompanyRepository
 import id.my.hendisantika.reactivemongodbcrud.repository.EmployeeRepository
@@ -32,4 +33,13 @@ class CompanyService(
         )
 
     fun findAll(): Flux<Company> = companyRepository.findAll()
+
+
+    fun findById(id: String): Mono<Company> =
+        companyRepository.findById(id)
+            .switchIfEmpty {
+                Mono.error(
+                    NotFoundException("Company with id $id not found")
+                )
+            }
 }
