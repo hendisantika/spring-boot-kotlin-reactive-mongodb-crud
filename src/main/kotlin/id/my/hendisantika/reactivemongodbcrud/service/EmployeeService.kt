@@ -1,8 +1,10 @@
 package id.my.hendisantika.reactivemongodbcrud.service
 
+import id.my.hendisantika.reactivemongodbcrud.exception.NotFoundException
 import id.my.hendisantika.reactivemongodbcrud.model.Employee
 import id.my.hendisantika.reactivemongodbcrud.repository.EmployeeRepository
 import id.my.hendisantika.reactivemongodbcrud.request.EmployeeRequest
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -59,4 +61,12 @@ class EmployeeService(
     fun findAll(): Flux<Employee> = employeeRepository.findAll()
 
     fun findAllByCompanyId(id: String): Flux<Employee> = employeeRepository.findByCompanyId(id)
+
+    fun findById(id: ObjectId): Mono<Employee> =
+        employeeRepository.findById(id)
+            .switchIfEmpty {
+                Mono.error(
+                    NotFoundException("Employee with id $id not found")
+                )
+            }
 }
