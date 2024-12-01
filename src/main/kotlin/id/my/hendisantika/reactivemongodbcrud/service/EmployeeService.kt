@@ -30,4 +30,15 @@ class EmployeeService(
             createEmployeeWithCompany(companyId, request)
         }
     }
+
+    private fun createEmployeeWithoutCompany(request: EmployeeRequest): Mono<Employee> {
+        return employeeRepository.save(
+            Employee(
+                firstName = request.firstName,
+                lastName = request.lastName,
+                email = request.email,
+                company = null
+            )
+        )
+    }
 }
