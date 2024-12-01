@@ -41,4 +41,13 @@ class CompanyController(
         return companyService.findById(id)
             .map { CompanyResponse.fromEntity(it) }
     }
+
+    @PutMapping("/{id}")
+    fun updateCompany(
+        @PathVariable id: String,
+        @RequestBody request: CompanyRequest
+    ): Mono<CompanyResponse> {
+        return companyService.updateCompany(id, request)
+            .map { CompanyResponse.fromEntity(it) }
+    }
 }
