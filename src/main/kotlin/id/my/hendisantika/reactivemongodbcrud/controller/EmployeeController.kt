@@ -55,4 +55,9 @@ class EmployeeController(
         return employeeService.updateEmployee(id, request)
             .map { EmployeeResponse.fromEntity(it) }
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteEmployee(@PathVariable id: ObjectId): Mono<Void> {
+        return employeeService.deleteById(id)
+    }
 }
