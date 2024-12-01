@@ -3,6 +3,7 @@ package id.my.hendisantika.reactivemongodbcrud.controller
 import id.my.hendisantika.reactivemongodbcrud.request.EmployeeRequest
 import id.my.hendisantika.reactivemongodbcrud.response.EmployeeResponse
 import id.my.hendisantika.reactivemongodbcrud.service.EmployeeService
+import org.bson.types.ObjectId
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -31,6 +32,12 @@ class EmployeeController(
     @GetMapping
     fun findAllEmployees(): Flux<EmployeeResponse> {
         return employeeService.findAll()
+            .map { EmployeeResponse.fromEntity(it) }
+    }
+
+    @GetMapping("/{id}")
+    fun findEmployeeById(@PathVariable id: ObjectId): Mono<EmployeeResponse> {
+        return employeeService.findById(id)
             .map { EmployeeResponse.fromEntity(it) }
     }
 }
