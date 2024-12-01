@@ -57,4 +57,6 @@ class EmployeeService(
             }
 
     fun findAll(): Flux<Employee> = employeeRepository.findAll()
+
+    fun findAllByCompanyId(id: String): Flux<Employee> = employeeRepository.findByCompanyId(id)
 }
