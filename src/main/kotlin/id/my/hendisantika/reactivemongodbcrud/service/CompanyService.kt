@@ -2,6 +2,7 @@ package id.my.hendisantika.reactivemongodbcrud.service
 
 import id.my.hendisantika.reactivemongodbcrud.exception.NotFoundException
 import id.my.hendisantika.reactivemongodbcrud.model.Company
+import id.my.hendisantika.reactivemongodbcrud.model.Employee
 import id.my.hendisantika.reactivemongodbcrud.repository.CompanyRepository
 import id.my.hendisantika.reactivemongodbcrud.repository.EmployeeRepository
 import id.my.hendisantika.reactivemongodbcrud.request.CompanyRequest
@@ -56,4 +57,10 @@ class CompanyService(
             .doOnSuccess { updateCompanyEmployees(it).subscribe() }
 
     fun deleteById(id: String): Mono<Void> = findById(id).flatMap(companyRepository::delete)
+
+    private fun updateCompanyEmployees(updatedCompany: Company): Flux<Employee> =
+        employeeRepository.saveAll(
+            employeeRepository.findByCompanyId(updatedCompany.id!!)
+                .map { it.apply { company = updatedCompany } }
+        )
 }
