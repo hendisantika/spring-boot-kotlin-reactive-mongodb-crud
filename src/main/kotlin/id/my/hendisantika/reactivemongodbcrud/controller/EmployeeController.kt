@@ -3,10 +3,8 @@ package id.my.hendisantika.reactivemongodbcrud.controller
 import id.my.hendisantika.reactivemongodbcrud.request.EmployeeRequest
 import id.my.hendisantika.reactivemongodbcrud.response.EmployeeResponse
 import id.my.hendisantika.reactivemongodbcrud.service.EmployeeService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 /**
@@ -27,6 +25,12 @@ class EmployeeController(
     @PostMapping
     fun createEmployee(@RequestBody request: EmployeeRequest): Mono<EmployeeResponse> {
         return employeeService.createEmployee(request)
+            .map { EmployeeResponse.fromEntity(it) }
+    }
+
+    @GetMapping
+    fun findAllEmployees(): Flux<EmployeeResponse> {
+        return employeeService.findAll()
             .map { EmployeeResponse.fromEntity(it) }
     }
 }
