@@ -69,4 +69,16 @@ class EmployeeService(
                     NotFoundException("Employee with id $id not found")
                 )
             }
+
+    fun updateEmployee(id: ObjectId, request: EmployeeRequest): Mono<Employee> {
+        val employeeToUpdate = findById(id)
+
+        val companyId = request.companyId
+        return if (companyId == null) {
+            updateEmployeeWithoutCompany(employeeToUpdate, request)
+        } else {
+            updateEmployeeWithCompany(companyId, employeeToUpdate, request)
+        }
+    }
+
 }
