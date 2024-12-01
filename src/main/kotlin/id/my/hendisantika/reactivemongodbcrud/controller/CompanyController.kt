@@ -3,11 +3,10 @@ package id.my.hendisantika.reactivemongodbcrud.controller
 import id.my.hendisantika.reactivemongodbcrud.request.CompanyRequest
 import id.my.hendisantika.reactivemongodbcrud.response.CompanyResponse
 import id.my.hendisantika.reactivemongodbcrud.service.CompanyService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.time.Duration
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,5 +27,12 @@ class CompanyController(
     fun createCompany(@RequestBody request: CompanyRequest): Mono<CompanyResponse> {
         return companyService.createCompany(request)
             .map { CompanyResponse.fromEntity(it) }
+    }
+
+    @GetMapping
+    fun findAllCompanies(): Flux<CompanyResponse> {
+        return companyService.findAll()
+            .map { CompanyResponse.fromEntity(it) }
+            .delayElements(Duration.ofSeconds(2))
     }
 }
