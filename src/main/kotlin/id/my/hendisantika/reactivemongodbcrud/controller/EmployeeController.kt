@@ -46,4 +46,13 @@ class EmployeeController(
         return employeeService.findAllByCompanyId(companyId)
             .map { EmployeeResponse.fromEntity(it) }
     }
+
+    @PutMapping("/{id}")
+    fun updateUpdateEmployee(
+        @PathVariable id: ObjectId,
+        @RequestBody request: EmployeeRequest
+    ): Mono<EmployeeResponse> {
+        return employeeService.updateEmployee(id, request)
+            .map { EmployeeResponse.fromEntity(it) }
+    }
 }
