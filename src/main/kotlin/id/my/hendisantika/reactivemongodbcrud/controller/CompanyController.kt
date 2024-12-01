@@ -1,8 +1,13 @@
 package id.my.hendisantika.reactivemongodbcrud.controller
 
+import id.my.hendisantika.reactivemongodbcrud.request.CompanyRequest
+import id.my.hendisantika.reactivemongodbcrud.response.CompanyResponse
 import id.my.hendisantika.reactivemongodbcrud.service.CompanyService
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Mono
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,4 +23,10 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/company")
 class CompanyController(
     private val companyService: CompanyService
-)
+) {
+    @PostMapping
+    fun createCompany(@RequestBody request: CompanyRequest): Mono<CompanyResponse> {
+        return companyService.createCompany(request)
+            .map { CompanyResponse.fromEntity(it) }
+    }
+}
