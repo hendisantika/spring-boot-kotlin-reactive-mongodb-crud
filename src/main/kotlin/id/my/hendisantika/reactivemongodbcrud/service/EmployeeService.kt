@@ -4,6 +4,7 @@ import id.my.hendisantika.reactivemongodbcrud.model.Employee
 import id.my.hendisantika.reactivemongodbcrud.repository.EmployeeRepository
 import id.my.hendisantika.reactivemongodbcrud.request.EmployeeRequest
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 /**
@@ -54,4 +55,6 @@ class EmployeeService(
                     )
                 )
             }
+
+    fun findAll(): Flux<Employee> = employeeRepository.findAll()
 }
