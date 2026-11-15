@@ -1,4 +1,6 @@
-spring.application.name: spring-boot-kotlin-reactive-mongodb-crud
-server:
-  error:
-    include-message: always
+spring:
+  application:
+    name: spring-boot-kotlin-reactive-mongodb-crud
+  web:
+    error:
+      include-message: always
