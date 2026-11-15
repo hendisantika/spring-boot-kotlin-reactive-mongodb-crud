@@ -1,0 +1,70 @@
+version: 2
+
+updates:
+  # Gradle dependencies (build.gradle.kts)
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+      - gradle
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+      include: scope
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+          - "io.spring.dependency-management*"
+      kotlin:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "io.projectreactor.kotlin*"
+      test:
+        patterns:
+          - "org.junit*"
+          - "org.jetbrains.kotlin:kotlin-test*"
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # GitHub Actions used in .github/workflows
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: "ci(deps)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Docker images referenced in compose.yaml (MongoDB)
+  - package-ecosystem: docker-compose
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - docker
+    commit-message:
+      prefix: "chore(docker)"
