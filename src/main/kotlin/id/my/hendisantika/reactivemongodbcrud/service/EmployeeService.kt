@@ -8,7 +8,6 @@ import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.switchIfEmpty
 
 /**
  * Created by IntelliJ IDEA.
@@ -65,11 +64,7 @@ class EmployeeService(
 
     fun findById(id: ObjectId): Mono<Employee> =
         employeeRepository.findById(id)
-            .switchIfEmpty {
-                Mono.error(
-                    NotFoundException("Employee with id $id not found")
-                )
-            }
+            .switchIfEmpty(Mono.error(NotFoundException("Employee with id $id not found")))
 
     fun updateEmployee(id: ObjectId, request: EmployeeRequest): Mono<Employee> {
         val employeeToUpdate = findById(id)

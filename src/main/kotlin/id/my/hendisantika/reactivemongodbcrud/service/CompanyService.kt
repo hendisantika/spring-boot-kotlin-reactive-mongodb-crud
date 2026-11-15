@@ -9,7 +9,6 @@ import id.my.hendisantika.reactivemongodbcrud.request.CompanyRequest
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.switchIfEmpty
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,11 +38,7 @@ class CompanyService(
 
     fun findById(id: String): Mono<Company> =
         companyRepository.findById(id)
-            .switchIfEmpty {
-                Mono.error(
-                    NotFoundException("Company with id $id not found")
-                )
-            }
+            .switchIfEmpty(Mono.error(NotFoundException("Company with id $id not found")))
 
     fun updateCompany(id: String, request: CompanyRequest): Mono<Company> =
         findById(id)
