@@ -55,7 +55,7 @@ class CompanyService(
                     }
                 )
             }
-            .doOnSuccess { updateCompanyEmployees(it).subscribe() }
+            .doOnSuccess { company -> company?.let { updateCompanyEmployees(it).subscribe() } }
 
     fun deleteById(id: String): Mono<Void> = findById(id).flatMap(companyRepository::delete)
 
