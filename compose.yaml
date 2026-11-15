@@ -4,6 +4,6 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - dbdata8:/data/db
+      - dbdata9:/data/db
 volumes:
-  dbdata8:
+  dbdata9:

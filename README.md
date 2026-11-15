@@ -5,7 +5,7 @@
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.4.21-7F52FF?logo=kotlin)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.2-6DB33F?logo=springboot)
 ![Gradle](https://img.shields.io/badge/Gradle-9.9.1-02303A?logo=gradle)
-![MongoDB](https://img.shields.io/badge/MongoDB-8.0-47A248?logo=mongodb)
+![MongoDB](https://img.shields.io/badge/MongoDB-9.0-47A248?logo=mongodb)
 
 A reactive CRUD REST API built with **Kotlin**, **Spring Boot WebFlux** and **Reactive MongoDB**.
 It manages `Company` and `Employee` documents, where an employee can optionally belong to a company.
@@ -19,7 +19,7 @@ It manages `Company` and `Employee` documents, where an employee can optionally 
 | Spring Boot      | 4.1.2 (WebFlux, Data MongoDB Reactive)   |
 | Reactor Kotlin   | `reactor-kotlin-extensions`              |
 | Build tool       | Gradle 9.9.1 (Kotlin DSL, wrapper)       |
-| Database         | MongoDB 8.0 (via Docker Compose)         |
+| Database         | MongoDB 9.0 (via Docker Compose)         |
 
 ## Prerequisites
 
