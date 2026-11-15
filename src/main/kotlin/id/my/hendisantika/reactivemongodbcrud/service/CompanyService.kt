@@ -9,6 +9,7 @@ import id.my.hendisantika.reactivemongodbcrud.request.CompanyRequest
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.kotlin.core.publisher.switchIfEmpty
 
 /**
  * Created by IntelliJ IDEA.

@@ -13,4 +13,4 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository
  * Time: 19.29
  * To change this template use File | Settings | File Templates.
  */
-internal interface CompanyRepository : ReactiveMongoRepository<Company, String>
+interface CompanyRepository : ReactiveMongoRepository<Company, String>
